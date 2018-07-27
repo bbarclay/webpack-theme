@@ -7,16 +7,17 @@ const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 // Our new plugin
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-
+//const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const extractSass = new ExtractTextPlugin({
-    filename: "../css/[name].min.css",
+    filename: "../assets/[name].min.css",
+    allChunks: true,
+
 });
 
 
 const webpack = require('webpack');
 
-var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 
 module.exports = {
@@ -35,10 +36,12 @@ module.exports = {
             ],
             reloadDelay: 0
       }),
+      //new webpack.HotModuleReplacementPlugin(),
+      //new webpack.NameModulesPlugin()
   ],
   output: {
     filename: '[name].min.js',
-    path: path.resolve(__dirname, 'assets/js')
+    path: path.resolve(__dirname, 'assets/')
   },
   module : {
 
@@ -59,7 +62,7 @@ module.exports = {
 			      use: [{
 			          loader: "css-loader",
 			          options: {
-			            minimize: true
+			            minimize: true,
 			          }
 			      }, {
 			          loader: "sass-loader"
@@ -83,12 +86,12 @@ module.exports = {
           test: /\.(png|jpe?g|gif|svg)$/,
           exclude: /node_modules/,
           use: [{
-            //loader: 'url-loader',
-              loader: 'file-loader',
+              loader: 'url-loader',
+              //loader: 'file-loader',
               options: { 
                   limit: 10000, // Convert images < 8kb to base64 strings
                   name: '[hash]-[name].[ext]',
-                  outputPath: '../images/'
+                  outputPath: 'images/'
               } 
           }]
       },
@@ -100,7 +103,7 @@ module.exports = {
                 options: {
                     limit: 10000, // Convert images < 8kb to base64 strings
                     name: '[hash]-[name].[ext]',
-                    outputPath: '../fonts/'
+                    outputPath: 'fonts/'
                 }
             }]
       }
@@ -108,9 +111,12 @@ module.exports = {
   	]
   },
   devServer: {
-        historyApiFallback: true,
+        contentBase: path.join(__dirname, "assets"),
+        //historyApiFallback: true,
         compress: true,
-        port: 9000,
+        //port: 9000,
+        stats: "errors-only",
+        open: true,
         https: config.url.indexOf('https') > -1 ? true : false,
         publicPath: config.fullPath,
         proxy: {

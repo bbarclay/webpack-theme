@@ -2,8 +2,8 @@
 @font-face {
     font-family: "Geogrotesque";
 
-    src: url("../fonts/geogrotesque/2705D8_8_0.eot?") format("eot"),
-    url("../fonts/geogrotesque/2705D8_8_0.svg#Geogrotesque") format("svg");
+    src: url("../fonts/geogrotesque/2705D8_8_0.eot?") format("eot");
+    /* //url("fonts/geogrotesque/2705D8_8_0.svg#Geogrotesque") format("svg");*/
     /*    url("../fonts/geogrotesque/2705D8_8_0.woff2") format("woff2"),
     url("../fonts/geogrotesque/2705D8_8_0.woff") format("woff"),
     //url("../fonts/geogrotesque/2705D8_8_0.ttf") format("truetype"),*/
@@ -20,6 +20,11 @@
 h1 {
     font-family: "Geogrotesque", sans-serif;
 
-    color: yellow;
-    background: url("../images/ad.jpg") center center / cover no-repeat;
+    color: #002749;
 }
+
+
+@import "default/default";
+@import "base/base";
+@import "layouts/layouts";
+@import "components/components";
